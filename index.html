@@ -175,18 +175,25 @@
       border-radius: 4px;
       cursor: pointer;
       text-decoration: none;
-      animation: pulse 1.2s ease-in-out infinite;
-      cursor: pointer;
-      cursor: pointer;
-      animation: pulse 1.2s ease-in-out infinite;
+  }
+   
+.btn-CPM {
+  display: inline-block;
+  padding: 14px 28px;
+  background: #0096ff;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  animation: mover 1s ease-in-out infinite;
 }
 
-@keyframes pulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.1); }
-  100% { transform: scale(1); }
-     }
-
+@keyframes mover {
+  0%   { transform: translateY(0) scale(1); }
+  50%  { transform: translateY(-6px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+   
     footer {
       background-color: #222;
       color: white;
@@ -226,6 +233,7 @@
 
 </body>
 </html>
+
 
 
 
