@@ -1,130 +1,128 @@
-﻿<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chatbot ModeBRAVLabs</title>
+<title>Chat modeBRAVLabs</title>
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 10px;
-}
+    /* Estilo do container */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f0f2f5;
+    }
 
-.chat-container {
-    width: 100%;
-    max-width: 400px;
-    height: 80vh;
-    max-height: 600px;
-    background: #020617;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.7);
-}
-
-.chat-header {
-    padding: 15px;
-    background: #020617;
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 1px solid #1e293b;
-}
-
-.chat-messages {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-}
-
-.message {
-    margin-bottom: 10px;
-    max-width: 80%;
-    padding: 10px;
-    border-radius: 10px;
-    word-wrap: break-word;
-}
-
-.user {
-    background: #2563eb;
-    align-self: flex-end;
-}
-
-.bot {
-    background: #1e293b;
-    align-self: flex-start;
-}
-
-.chat-input {
-    display: flex;
-    border-top: 1px solid #1e293b;
-}
-
-.chat-input input {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    outline: none;
-    background: #020617;
-    color: white;
-    font-size: 1rem;
-}
-
-.chat-input button {
-    padding: 12px 20px;
-    border: none;
-    background: #2563eb;
-    color: white;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.chat-input button:hover {
-    background: #1d4ed8;
-}
-
-/* Responsividade */
-@media (max-width: 600px) {
     .chat-container {
-        max-width: 100%;
-        height: 90vh;
+        width: 100%;
+        max-width: 400px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        background: #fff;
     }
-    .chat-input input {
-        font-size: 0.9rem;
+
+    #messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        background: #e5e5e5;
     }
-    .chat-input button {
-        font-size: 0.9rem;
+
+    .message {
+        margin-bottom: 10px;
         padding: 10px 15px;
+        border-radius: 20px;
+        max-width: 80%;
+        word-wrap: break-word;
     }
-}
+
+    .message.user {
+        background: #4a90e2;
+        color: #fff;
+        align-self: flex-end;
+        border-bottom-right-radius: 0;
+    }
+
+    .message.bot {
+        background: #fff;
+        color: #333;
+        align-self: flex-start;
+        border-bottom-left-radius: 0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .input-container {
+        display: flex;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+        background: #fafafa;
+    }
+
+    #input {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        outline: none;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    #sendBtn {
+        padding: 10px 20px;
+        border: none;
+        background: #4a90e2;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    #sendBtn:hover {
+        background: #357ab8;
+    }
+
+    /* Scroll automático */
+    #messages::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #messages::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.2);
+        border-radius: 3px;
+    }
+
+    @media (max-width: 500px) {
+        .chat-container {
+            height: 100vh;
+            border-radius: 0;
+        }
+    }
 </style>
 </head>
 <body>
-
 <div class="chat-container">
-    <div class="chat-header">Chatbot ModeBRAVLabs</div>
-    <div class="chat-messages" id="messages"></div>
-    <div class="chat-input">
-        <input type="text" id="input" placeholder="Digite sua mensagem...">
-        <button onclick="sendMessage()">Enviar</button>
+    <div id="messages"></div>
+    <div class="input-container">
+        <input id="input" type="text" placeholder="Digite sua mensagem..." />
+        <button id="sendBtn">Enviar</button>
     </div>
 </div>
-
-<div id="messages"></div>
-<input id="input" type="text" placeholder="Digite sua mensagem..." />
 
 <script>
 const messages = document.getElementById("messages");
 const input = document.getElementById("input");
+const sendBtn = document.getElementById("sendBtn");
 
-// Mensagem de boas-vindas ao carregar a página
+// Mensagem de boas-vindas
 window.addEventListener("load", () => {
     const welcomeText = `Bem-vindo ao chatbot modeBRAVLabs!
 Aqui você pode encontrar:
@@ -137,6 +135,7 @@ Digite sua dúvida ou assunto que quer explorar.`;
     addMessage(welcomeText, "bot");
 });
 
+// Enviar mensagem
 function sendMessage() {
     const text = input.value.trim();
     if (!text) return;
@@ -149,6 +148,7 @@ function sendMessage() {
     }, 800);
 }
 
+// Adiciona mensagem no chat
 function addMessage(text, sender) {
     const div = document.createElement("div");
     div.className = `message ${sender}`;
@@ -157,69 +157,33 @@ function addMessage(text, sender) {
     messages.scrollTop = messages.scrollHeight;
 }
 
+// Lógica de respostas do bot
 function botReply(text) {
     let reply = "Não entendi. Pode reformular?";
 
     const lowerText = text.toLowerCase();
 
-    // Saudações
-    if (lowerText.includes("oi") || lowerText.includes("olá")) {
-        reply = "Olá! Eu sou o assistente da modeBRAVLabs. Sobre o que você quer conversar hoje?";
-    }
-
-    // Sobre Python
-    if (lowerText.includes("python")) {
-        reply = "Python é excelente para automação, IA e desenvolvimento web. Podemos ensinar a usar na prática.";
-    }
-
-    // Sobre desenvolvimento web
-    if (lowerText.includes("dev_attach") || lowerText.includes("desenvolvimento web")) {
-        reply = "Desenvolvimento web envolve HTML, CSS, JS e frameworks modernos. É uma habilidade essencial para criar software de alta performance.";
-    }
-
-    // Inteligência Artificial
-    if (lowerText.includes("ia") || lowerText.includes("inteligência artificial")) {
-        reply = "Inteligência Artificial está revolucionando o mundo. Podemos usar para melhorar produtividade, análise de dados e automação.";
-    }
-
-    // Sobre modeBRAVLabs
-    if (lowerText.includes("modebravlabs")) {
-        reply = "modeBRAVLabs é uma empresa dedicada ao uso da tecnologia para melhorar foco, evolução pessoal, produtividade e persuasão.";
-    }
-
-    // Sobre o CEO
-    if (lowerText.includes("henrique joão muianga") || lowerText.includes("ceo")) {
-        reply = "Henrique João Muianga é o CEO da modeBRAVLabs, liderando projetos que unem tecnologia e desenvolvimento pessoal.";
-    }
-
-    // Ansiedade
-    if (lowerText.includes("ansiedade")) {
-        reply = "Gerir a ansiedade envolve técnicas de respiração, mindfulness, exercícios físicos e manter uma rotina equilibrada.";
-    }
-
-    // Preocupação com opinião alheia
-    if (lowerText.includes("preocupar com pessoas") || lowerText.includes("opinião dos outros")) {
-        reply = "Para parar de se preocupar com a opinião dos outros, concentre-se em seus objetivos, pratique autoconhecimento e estabeleça limites saudáveis.";
-    }
-
-    // Depressão
-    if (lowerText.includes("depressão")) {
-        reply = "Depressão é uma condição mental complexa que pode surgir devido a fatores genéticos, bioquímicos, psicológicos ou sociais. Procurar ajuda profissional é essencial.";
-    }
-
-    // Força pessoal
-    if (lowerText.includes("ser forte") || lowerText.includes("homem") || lowerText.includes("mulher")) {
-        reply = "Ser forte envolve desenvolver resiliência, inteligência emocional, disciplina e cuidar da mente e corpo. Todos podem evoluir nesse sentido.";
-    }
+    if (lowerText.includes("oi") || lowerText.includes("olá")) reply = "Olá! Eu sou o assistente da modeBRAVLabs. Sobre o que você quer conversar hoje?";
+    if (lowerText.includes("python")) reply = "Python é excelente para automação, IA e desenvolvimento web.";
+    if (lowerText.includes("dev_attach") || lowerText.includes("desenvolvimento web")) reply = "Desenvolvimento web envolve HTML, CSS, JS e frameworks modernos.";
+    if (lowerText.includes("ia") || lowerText.includes("inteligência artificial")) reply = "Inteligência Artificial está revolucionando o mundo.";
+    if (lowerText.includes("modebravlabs")) reply = "modeBRAVLabs é uma empresa dedicada ao uso da tecnologia para melhorar foco, evolução pessoal, produtividade e persuasão.";
+    if (lowerText.includes("henrique joão muianga") || lowerText.includes("ceo")) reply = "Henrique João Muianga é o CEO da modeBRAVLabs, liderando projetos que unem tecnologia e desenvolvimento pessoal.";
+    if (lowerText.includes("ansiedade")) reply = "Gerir a ansiedade envolve técnicas de respiração, mindfulness, exercícios físicos e manter uma rotina equilibrada.";
+    if (lowerText.includes("preocupar com pessoas") || lowerText.includes("opinião dos outros")) reply = "Para parar de se preocupar com a opinião dos outros, concentre-se em seus objetivos, pratique autoconhecimento e estabeleça limites saudáveis.";
+    if (lowerText.includes("depressão")) reply = "Depressão é uma condição mental complexa que pode surgir devido a fatores genéticos, bioquímicos, psicológicos ou sociais. Procurar ajuda profissional é essencial.";
+    if (lowerText.includes("ser forte") || lowerText.includes("homem") || lowerText.includes("mulher")) reply = "Ser forte envolve desenvolver resiliência, inteligência emocional, disciplina e cuidar da mente e corpo.";
 
     addMessage(reply, "bot");
 }
 
-// Enviar mensagem ao apertar Enter
+// Envia mensagem ao apertar Enter
 input.addEventListener("keypress", function(e) {
     if (e.key === "Enter") sendMessage();
 });
-    </script>
+
+// Envia mensagem ao clicar no botão
+sendBtn.addEventListener("click", sendMessage);
+</script>
 </body>
 </html>
-
