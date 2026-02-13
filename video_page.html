@@ -1,155 +1,156 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria de Vídeos</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeria de Vídeos</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      background: blue;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 700;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background: darkblue;
+    }
+
+    .video-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .video-container video {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #333;
+      color: #fff;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .video-container video {
+        max-width: 100%;
+      }
+    }
+  </style>
+
   <header>
     <h1>🎬 Minha Galeria de Vídeos</h1>
   </header>
 
   <nav>
-  <a href="CPM.html" target="_blank">Anterior</a>
-  <a href="publicacoes.html" target="_blank">seguinte</a>
-</nav>
-    
+    <a href="CPM.html" target="_blank">Anterior</a>
+    <a href="publicacoes.html" target="_blank">Seguinte</a>
+  </nav>
+
+  <!-- Vídeos -->
   <div class="video-container">
-  <video controls>
-    <source src="tua_mente_pode_ser_teu_maior_inimigo.mp4" type="video/mp4">
-  </video>
-  </div>
-    
- <div class="video-container">
-  <video controls>
-    <source src="Gerindo_energia_mental.mp4" type="video/mp4">
-  </video>
-  </div>
-    
-    <div class="video-container">
-  <video controls>
-    <source src="Pense_na_ansiedade_como_eletrecidade.mp4" type="video/mp4">
-  </video>
-  </div>
-    
-    <div class="video-container">
-  <video controls>
-    <source src="O_que_e_viver_no_automatico.mp4" type="video/mp4">
-  </video>
+    <video controls>
+      <source src="tua_mente_pode_ser_teu_maior_inimigo.mp4" type="video/mp4">
+    </video>
   </div>
 
-    <div class="video-container">
-  <video controls>
-    <source src="Imagina_sua_mente_como_computador.mp4" type="video/mp4">
-  </video>
-  </div>
-    
-    <div class="video-container">
-  <video controls>
-    <source src="efeito_da_pornografia.mp4" type="video/mp4">
-  </video>
+  <div class="video-container">
+    <video controls>
+      <source src="Gerindo_energia_mental.mp4" type="video/mp4">
+    </video>
   </div>
 
-    <div class="video-container">
-  <video controls>
-    <source src="consequência_de_estresse_prolongado.mp4" type="video/mp4">
-  </video>
+  <div class="video-container">
+    <video controls>
+      <source src="Pense_na_ansiedade_como_eletrecidade.mp4" type="video/mp4">
+    </video>
   </div>
-    
-<script> const video = document.getElementById("meuVideo"); 
-    window.addEventListener("scroll", () => { 
-        const rect = video.getBoundingClientRect(); 
-        const totalmenteVisivel = rect.top >= 0 && rect.bottom <= window.innerHeight; 
-        if (!totalmenteVisivel) { 
-            video.pause(); // pausa se não estiver totalmente visível } 
-            else { video.play(); // toca se estiver visível 
-                 } 
-                 }); 
-</script>
-<style>
 
-body {
-  font-family: Arial, sans-serif;
-  background: #ffff;
-  margin: 0;
-  padding: 0;
-}
+  <div class="video-container">
+    <video controls>
+      <source src="O_que_e_viver_no_automatico.mp4" type="video/mp4">
+    </video>
+  </div>
 
-header {
-  background: #333;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-}
+  <div class="video-container">
+    <video controls>
+      <source src="Imagina_sua_mente_como_computador.mp4" type="video/mp4">
+    </video>
+  </div>
 
-h1 {
-  margin: 0;
-}
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin: 20px 0;
-}
+  <div class="video-container">
+    <video controls>
+      <source src="efeito_da_pornografia.mp4" type="video/mp4">
+    </video>
+  </div>
 
-nav a {
-    color: aliceblue;
-    text-decoration: none;
-    background: blue;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-weight: 700;
-    transition: background 0.3s;
-}
-
-nav a:hover {
-    background: darkblue;
-.video-container {
-  display: flex;
-  background-image: #ffff;
-  justify-content: center;
-  border-radius: 8px;
-  margin: 40px 0;
-  box-shadow: 18px 8px 6px rgba(255, 0, 0, 0.1);
-  padding: 10px;
-}
-    
-.video-container video {
-  width: 80%;
-  max-width: 600px;
-  border-radius: 12px;
-
-footer {
-  text-align: center;
-  justify-content: center;
-  padding: 15px;
-  background: #grey;
-  color: #fff;
-}
-</style>
+  <div class="video-container">
+    <video controls>
+      <source src="consequência_de_estresse_prolongado.mp4" type="video/mp4">
+    </video>
+  </div>
 
   <footer>
-    <p>&copy; 2026 - ModeBRAVHLabs Todos direitos reservados</p>
+    <p>&copy; 2026 - ModeBRAVHLabs | Todos os direitos reservados</p>
   </footer>
-  
- 
+
+  <!-- Script para pausar vídeos fora da tela -->
+  <script>
+    const videos = document.querySelectorAll("video");
+
+    window.addEventListener("scroll", () => {
+      videos.forEach(video => {
+        const rect = video.getBoundingClientRect();
+        const totalmenteVisivel = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+        if (!totalmenteVisivel) {
+          video.pause();
+        } else {
+          video.play();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
