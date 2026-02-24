@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uploads</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel {
+    width: 60%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.drop-zone {
+    border: 2px dashed #00ffe0;
+    padding: 60px;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.drop-zone:hover {
+    background-color: rgba(0,255,224,0.1);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+video {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 15px;
+}
+
+.right-panel {
+    width: 40%;
+    background: rgba(0,0,0,0.3);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input, textarea, select {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+button {
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background: #00ffe0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00c8b0;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="left-panel">
+        <label class="drop-zone" id="dropZone">
+            Arraste seu vídeo aqui ou clique para selecionar
+            <input type="file" id="fileInput" accept="video/*">
+        </label>
+        <video id="preview" controls></video>
+    </div>
+
+    <div class="right-panel">
+        <h2>Detalhes da Publicação</h2>
+        <input type="text" placeholder="Título impactante">
+        <textarea placeholder="Descrição estratégica"></textarea>
+        <select>
+            <option>Público</option>
+            <option>Privado</option>
+        </select>
+        <input type="datetime-local">
+        <button>Publicar</button>
+    </div>
+</div>
+
+<script>
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const preview = document.getElementById('preview');
+
+dropZone.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const url = URL.createObjectURL(file);
+        preview.src = url;
+    }
+});
+</script>
+
+</body>
+</html>
