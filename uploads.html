@@ -1,41 +1,56 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uploads</title>
+<title>Upload</title>
+
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: system-ui, -apple-system, sans-serif;
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     color: white;
 }
 
 .container {
     display: flex;
-    height: 100vh;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.left-panel {
-    width: 60%;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+/* Desktop layout */
+@media (min-width: 900px) {
+    .container {
+        flex-direction: row;
+    }
+}
+
+.left-panel, .right-panel {
+    padding: 20px;
+    width: 100%;
+}
+
+@media (min-width: 900px) {
+    .left-panel { width: 60%; }
+    .right-panel { width: 40%; }
 }
 
 .drop-zone {
     border: 2px dashed #00ffe0;
-    padding: 60px;
-    text-align: center;
     border-radius: 20px;
+    padding: 40px;
+    text-align: center;
     cursor: pointer;
     transition: 0.3s;
 }
 
 .drop-zone:hover {
-    background-color: rgba(0,255,224,0.1);
+    background: rgba(0,255,224,0.1);
 }
 
 input[type="file"] {
@@ -43,28 +58,32 @@ input[type="file"] {
 }
 
 video {
-    max-width: 100%;
+    width: 100%;
+    max-height: 300px;
     margin-top: 20px;
     border-radius: 15px;
+    object-fit: cover;
 }
 
-.right-panel {
-    width: 40%;
-    background: rgba(0,0,0,0.3);
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.form-group {
+    margin-bottom: 15px;
 }
 
 input, textarea, select {
+    width: 100%;
     padding: 12px;
     border-radius: 10px;
     border: none;
     outline: none;
+    font-size: 16px;
+}
+
+textarea {
+    resize: vertical;
 }
 
 button {
+    width: 100%;
     padding: 15px;
     border-radius: 10px;
     border: none;
@@ -79,43 +98,68 @@ button:hover {
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
     <div class="left-panel">
         <label class="drop-zone" id="dropZone">
-            Arraste seu vídeo aqui ou clique para selecionar
+            Arraste ou toque para selecionar vídeo
             <input type="file" id="fileInput" accept="video/*">
         </label>
         <video id="preview" controls></video>
     </div>
 
     <div class="right-panel">
-        <h2>Detalhes da Publicação</h2>
-        <input type="text" placeholder="Título impactante">
-        <textarea placeholder="Descrição estratégica"></textarea>
-        <select>
-            <option>Público</option>
-            <option>Privado</option>
-        </select>
-        <input type="datetime-local">
-        <button>Publicar</button>
+        <h2>Detalhes</h2>
+
+        <div class="form-group">
+            <input type="text" placeholder="Título impactante">
+        </div>
+
+        <div class="form-group">
+            <textarea rows="4" placeholder="Descrição estratégica"></textarea>
+        </div>
+
+        <div class="form-group">
+            <select>
+                <option>Público</option>
+                <option>Privado</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="datetime-local">
+        </div>
+
+        <button id="publishBtn">Publicar</button>
     </div>
 </div>
 
 <script>
-const dropZone = document.getElementById('dropZone');
-const fileInput = document.getElementById('fileInput');
-const preview = document.getElementById('preview');
+const publishBtn = document.getElementById("publishBtn");
+const fileInput = document.getElementById("fileInput");
 
-dropZone.addEventListener('click', () => fileInput.click());
-
-fileInput.addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-        const url = URL.createObjectURL(file);
-        preview.src = url;
+publishBtn.addEventListener("click", () => {
+    const file = fileInput.files[0];
+    if (!file) {
+        alert("Selecione um vídeo primeiro.");
+        return;
     }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const videoData = e.target.result;
+
+        let videos = JSON.parse(localStorage.getItem("uploadedVideos")) || [];
+        videos.push(videoData);
+
+        localStorage.setItem("uploadedVideos", JSON.stringify(videos));
+
+        window.location.href = "publicacoes_interativas.html";
+    };
+
+    reader.readAsDataURL(file);
 });
 </script>
 
