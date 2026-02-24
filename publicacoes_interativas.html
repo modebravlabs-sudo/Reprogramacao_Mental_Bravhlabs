@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Interativo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Publicações</h1>
+    <nav>
+      <ul>
+        <li><a href="#publicacoes">Publicações</a></li>
+        <li><a href="#usuarios">Usuários</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="publicacoes">
+      <h2>Últimas Publicações</h2>
+      <div id="posts-container"></div>
+      <form id="new-post-form">
+        <textarea placeholder="Escreva sua publicação..." required></textarea>
+        <button type="submit">Publicar</button>
+      </form>
+    </section>
+
+    <section id="usuarios">
+      <h2>Interações</h2>
+      <div id="comments-container"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Modebravhlabs | Todos os direitos reservados</p>
+  </footer>
+
+  /* styles.css */
+<style>
+
+  body {font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header, footer {
+  background: #333;
+  color: #fff;
+  padding: 1rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+main {
+  padding: 1rem;
+}
+
+textarea {
+  width: 100%;
+  min-height: 80px;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  background: #0078d7;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005a9e;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+  }
+}
+</style>
+
+  <script>
+    // script.js
+document.getElementById("new-post-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const textarea = this.querySelector("textarea");
+  const postText = textarea.value.trim();
+
+  if (postText) {
+    const postContainer = document.getElementById("posts-container");
+    const postElement = document.createElement("div");
+    postElement.className = "post";
+    postElement.textContent = postText;
+
+    postContainer.prepend(postElement);
+    textarea.value = "";
+  }
+});
+
+  </script>
+</body>
+</html>
